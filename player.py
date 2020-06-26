@@ -2,16 +2,7 @@ import pygame as pg
 import animation
 from settings import *
 
-global playerx
-playerx = 0
-
-global playery
-playery = 0
-
-
 class Player(pg.sprite.Sprite):
-    global playerx
-    global playery
 
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
@@ -23,7 +14,7 @@ class Player(pg.sprite.Sprite):
         self.accel = 1
         self.xspeed = 0
         self.yspeed = 0
-        self.maxSpeed = 5
+        self.maxSpeed = 3
 
         self.frontS = []
         self.cont = 1
@@ -32,12 +23,12 @@ class Player(pg.sprite.Sprite):
         self.aniID = 0
 
     def update(self):
+        #PLAYER MOVIMENTATION
         key = pg.key.get_pressed()
         if key[pg.K_LSHIFT] or key[pg.K_RSHIFT]:
-            self.maxSpeed = 1
-
+            self.maxSpeed =18
         else:
-            self.maxSpeed = 4
+            self.maxSpeed = 3
         if key[pg.K_w] or key[pg.K_UP]:
             if self.xspeed > -self.maxSpeed:
                 self.xspeed -= self.accel
@@ -69,9 +60,7 @@ class Player(pg.sprite.Sprite):
         self.rect[1] += self.xspeed
         self.rect[0] += self.yspeed
 
-        playerx = self.rect[0]
-        playery = self.rect[1]
-
+        #PLAYER ANIMATION
         if self.xspeed > 0 and self.yspeed == 0:
             self.frame = animation.Animation("data/sprites/Player/Front-Running/", 2, self.xspeed)
             self.image = pg.image.load(self.frame).convert_alpha()
@@ -97,25 +86,25 @@ class Player(pg.sprite.Sprite):
             self.aniID = 4
 
         if self.xspeed > 0 and self.yspeed > 0:
-            self.frame = animation.Animation("data/sprites/Player/FrontR-Running/", 6, self.yspeed)
+            self.frame = animation.Animation("data/sprites/Player/FrontR-Running/", 6, self.yspeed + 18.5)
             self.image = pg.image.load(self.frame).convert_alpha()
             # self.image = pg.transform.scale(self.image, [80, 120])
             self.aniID = 5
 
         if self.xspeed < 0 and self.yspeed > 0:
-            self.frame = animation.Animation("data/sprites/Player/BackSidedR-Running/", 7, self.yspeed)
+            self.frame = animation.Animation("data/sprites/Player/BackSidedR-Running/", 7, self.yspeed + 18.5)
             self.image = pg.image.load(self.frame).convert_alpha()
             # self.image = pg.transform.scale(self.image, [80, 120])
             self.aniID = 6
 
         if self.xspeed < 0 and self.yspeed < 0:
-            self.frame = animation.Animation("data/sprites/Player/BackSidedL-Running/", 8, self.yspeed)
+            self.frame = animation.Animation("data/sprites/Player/BackSidedL-Running/", 8, self.yspeed + 18.5)
             self.image = pg.image.load(self.frame).convert_alpha()
             # self.image = pg.transform.scale(self.image, [80, 120])
             self.aniID = 7
 
         if self.xspeed > 0 and self.yspeed < 0:
-            self.frame = animation.Animation("data/sprites/Player/FrontSideL-Running/", 9, self.yspeed)
+            self.frame = animation.Animation("data/sprites/Player/FrontSideL-Running/", 9, self.yspeed + 18.5)
             self.image = pg.image.load(self.frame).convert_alpha()
             # self.image = pg.transform.scale(self.image, [80, 120])
             self.aniID = 8
@@ -154,11 +143,5 @@ class Player(pg.sprite.Sprite):
                 self.frame = animation.Animation("data/sprites/Player/FrontSidedL-Stopped/", 1, 7)
                 self.image = pg.image.load(self.frame).convert_alpha()
                 # self.image = pg.transform.scale(self.image, [80, 120])
-
-    def posX(self):
-        return self.rect[0]
-
-    def posY(self):
-        return self.rect[1]
 
 

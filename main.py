@@ -39,7 +39,6 @@ def tilemap():
 
 
 
-
 # GAMELOOP
 gameloop = True
 while gameloop:
@@ -50,7 +49,9 @@ while gameloop:
     time = clock.tick(90)
     if pg.mouse.get_pressed() == (1, 0, 0):
         newBullet = bullet.Bullet(bulletGroup, playerGroup)
-    # r, g, b, rCheck, gCheck, bCheck = cl.ColorLoop(r, g, b, rCheck, gCheck, bCheck)
+        newBullet.rect[0], newBullet.rect[1] = player.rect.center
+
+# r, g, b, rCheck, gCheck, bCheck = cl.ColorLoop(r, g, b, rCheck, gCheck, bCheck)
     #x = pg.mouse.get_pos()[0]
     #y = pg.mouse.get_pos()[1]
     #print(x, y)
@@ -59,7 +60,7 @@ while gameloop:
     draw()
     # pg.draw.rect(display, [r, g, b], [ScreenW / 2 - 50, ScreenH / 2 - 50, 100, 100])
     playerGroup.update()
+    bulletGroup.update()
     bulletGroup.draw(display)
     playerGroup.draw(display)
     pg.display.flip()
-    print(player.posX() , player.posY())

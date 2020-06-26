@@ -2,11 +2,8 @@ import pygame as pg, os
 
 global resetFrame
 resetFrame = False
-
 global frameCount
 frameCount = 1
-startTime = pg.time.get_ticks()
-
 global checker2
 checker2 = 0
 
@@ -17,14 +14,10 @@ def clock():
 
 
 global frameTime
-
-
 class initFrameTime():
     def __init__(self):
         global frameTime
         frameTime = clock()
-
-
 initFrameTime()
 
 
@@ -44,9 +37,9 @@ def Animation(path,checker1,speed):
     maxFrames = len(os.listdir(path))
     actualFrame = path + str(frameCount) + ".png"
     if resetFrame == False:
-        frameTime = newFrame + 36 * (1-0/(-speed))
+        frameTime = newFrame + 28 - (speed / 2)
         resetFrame = True
-    if newFrame - frameTime > 36 * (1-0/(-speed)):
+    if newFrame - frameTime > 28 - (speed / 2):
         resetFrame = False
         if frameCount >= maxFrames:
             frameCount = 1
