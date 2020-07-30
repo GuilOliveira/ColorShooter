@@ -2,6 +2,46 @@ import pygame as pg
 import animation
 from settings import *
 
+def clock():
+    current_time = pg.time.get_ticks()
+    return current_time
+global ufoMove
+ufoMove = clock()
+
+
+class Ufo(pg.sprite.Sprite):
+    def __init__(self):
+        global ufoMove
+        pg.sprite.Sprite.__init__(self)
+        self.image = pg.image.load("data/sprites/Ufo/ufo.png").convert_alpha()
+        self.image = pg.transform.scale(self.image, [33, 33])
+        self.rect = self.image.get_rect()
+        self.cont = 0
+        self.upping = True
+        if clock() > ufoMove + 500:
+            self.moveColldown = False
+            ufoMove = clock() + 500
+        else:
+            self.moveColldown = True
+    def update(self):
+        if self.moveColldown:
+            pass
+        else:
+            if self.upping:
+                if self.cont == 40:
+                    self.upping = False
+                    self.cont -= 1
+                else:
+                    self.rect[1] -= 1
+                    self.cont += 1
+            else:
+                if self.cont == 0:
+                    self.upping = True
+                    self.cont += 1
+                else:
+                    self.rect[1] += 1
+                    self.cont -= 1
+
 class Player(pg.sprite.Sprite):
 
     def __init__(self):
@@ -26,7 +66,7 @@ class Player(pg.sprite.Sprite):
         #PLAYER MOVIMENTATION
         key = pg.key.get_pressed()
         if key[pg.K_LSHIFT] or key[pg.K_RSHIFT]:
-            self.maxSpeed =18
+            self.maxSpeed = 2
         else:
             self.maxSpeed = 3
         if key[pg.K_w] or key[pg.K_UP]:
