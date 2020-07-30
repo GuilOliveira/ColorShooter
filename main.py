@@ -16,13 +16,28 @@ def draw():
     display.blit(grass, (0, 0))
     display.blit(stone, (0, 0))
 
-    tilemap()
+    # tilemap()
 
 
 def ct():
     current_time = pg.time.get_ticks()
     return current_time
 
+# COIN GUI
+coins = 100
+coinFont = pg.font.Font("data/fonts/pixelFont.TTF", 30)
+coinImg = pg.image.load("data/skullCoin.png")
+coinImg = pg.transform.scale(coinImg, [40, 40])
+
+def coinDraw():
+    display.blit(coinImg, (5, 40))
+    coin = coinFont.render(str(coins), 1, (251, 242, 54))
+    display.blit(coin, (50, 47))
+
+# HEALTH BAR
+def healthbar():
+    pg.draw.rect(display, (0, 0, 0), (5, 5, 270, 30))
+    pg.draw.rect(display, (230, 0, 0), (5, 5, 210, 30))
 
 # COLORLOOP VARIABLES
 r = 0
@@ -40,7 +55,10 @@ bulletGroup = pg.sprite.Group()
 ufo = player.Ufo()
 ufoGroup = pg.sprite.Group(ufo)
 grass = pg.image.load("data/Tiles/grama.png").convert_alpha()
+grass = pg.transform.scale(grass, [8000, 8000])
 stone = pg.image.load("data/Tiles/pedras.png").convert_alpha()
+stone = pg.transform.scale(stone, [8000, 8000])
+
 
 
 def tilemap():
@@ -72,6 +90,7 @@ while gameloop:
 
     draw()
 
+
     # pg.draw.rect(display, [r, g, b], [ScreenW / 2 - 50, ScreenH / 2 - 50, 100, 100])
     playerGroup.update()
     bulletGroup.update()
@@ -79,4 +98,6 @@ while gameloop:
     playerGroup.draw(display)
     bulletGroup.draw(display)
     ufoGroup.draw(display)
+    coinDraw()
+    healthbar()
     pg.display.flip()

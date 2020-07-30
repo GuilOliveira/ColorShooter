@@ -1,7 +1,7 @@
 import pygame as pg
 
-screenW = 900
-screenH = 600
+screenW = 1200
+screenH = 800
 clock = pg.time.Clock()
 
 
